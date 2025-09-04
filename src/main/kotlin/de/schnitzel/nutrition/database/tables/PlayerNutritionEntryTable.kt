@@ -8,6 +8,8 @@ object PlayerNutritionEntryTable : Table("player_nutrition_entries") {
     val fruit = float("fruit").default(5.0f)
     val sugar = float("sugar").default(5.0f)
     val cereals = float("cereals").default(5.0F)
+    val meat = float("meat").default(5.0F)
+    val dairy = float("dairy").default(5.0F)
 
     override val primaryKey = PrimaryKey(playerUuid)
 }

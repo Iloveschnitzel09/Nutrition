@@ -1,6 +1,7 @@
 package de.schnitzel.nutrition.listener
 
 import de.schnitzel.nutrition.service.FoodService
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerItemConsumeEvent
@@ -20,7 +21,7 @@ class EatListener : Listener {
         }
 
         val categoryText = categories.joinToString(", ") { it.name }
-        player.sendMessage("Du hast ${item.name} gegessen. Kategorien: $categoryText")
+        player.sendMessage("Du hast ${PlainTextComponentSerializer.plainText().serialize(event.item.displayName())} gegessen. Kategorien: $categoryText")
 
     }
 }

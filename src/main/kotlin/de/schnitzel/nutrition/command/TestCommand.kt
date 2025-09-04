@@ -1,24 +1,26 @@
 package de.schnitzel.nutrition.command
 
-import de.schnitzel.nutrition.gui.NewNutritionGui
+import com.github.shynixn.mccoroutine.folia.launch
+import de.schnitzel.nutrition.NutritionData
+import de.schnitzel.nutrition.database.DatabaseService
+import de.schnitzel.nutrition.plugin
 import dev.jorel.commandapi.kotlindsl.commandAPICommand
 import dev.jorel.commandapi.kotlindsl.playerExecutor
-import dev.slne.surf.surfapi.core.api.messages.adventure.sendText
-import org.bukkit.Material
+import kotlinx.coroutines.Dispatchers
+
 
 fun testCommand() = commandAPICommand("test") {
-        withPermission("abc.command.test")
-        playerExecutor { player, _ ->
+    withPermission("abc.command.test")
+    playerExecutor { player, _ ->
+        val data = NutritionData(
+            player.uniqueId, 20, 5.0f, 5.0f, 5.0f, 5.0f, 5.0f
+        )
 
-            val material = player.inventory.itemInMainHand.type
+        plugin.launch(Dispatchers.IO) {
+            //DatabaseService.saveNutritionData(data)
 
-            if(material == Material.AIR){
-                player.sendText {
-                    error("Du hast kein Gegenstand in der Hand!")
-                }
-                return@playerExecutor
-            }
-            NewNutritionGui().show(player)
+            val loadedData = DatabaseService.loadNutritionData(player.uniqueId)
+            player.sendMessage(loadedData?.nuScore.toString(), loadedData?.fruit.toString(), loadedData?.sugar.toString(), loadedData?.cereals.toString(), loadedData?.meat.toString(), loadedData?.dairy.toString())
         }
-
+    }
 }
