@@ -4,8 +4,10 @@ import org.jetbrains.exposed.sql.Table
 
 object PlayerNutritionEntryTable : Table("player_nutrition_entries") {
     val playerUuid = uuid("player_uuid").uniqueIndex()
-    val nutrition = integer("nutrition").default(20)
-    val saturation = float("saturation").default(5.0f)
+    val nuScore = integer("nuScore").default(20)
+    val fruit = float("fruit").default(5.0f)
+    val sugar = float("sugar").default(5.0f)
+    val cereals = float("cereals").default(5.0F)
 
     override val primaryKey = PrimaryKey(playerUuid)
 }
