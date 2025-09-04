@@ -1,5 +1,6 @@
 package de.schnitzel.nutrition
 
+import de.schnitzel.nutrition.command.nutritionGuiCommand
 import de.schnitzel.nutrition.command.testCommand
 import de.schnitzel.nutrition.database.DatabaseService
 import de.schnitzel.nutrition.listener.EatListener
@@ -22,7 +23,7 @@ class Nutrition : JavaPlugin() {
         saveDefaultConfig()
         FoodService.load(this)
 
-
+        nutritionGuiCommand()
         testCommand()
         manager.registerEvents(EatListener(), this)
     }
