@@ -4,6 +4,7 @@ import de.schnitzel.nutrition.command.nutritionGuiCommand
 import de.schnitzel.nutrition.command.testCommand
 import de.schnitzel.nutrition.database.DatabaseService
 import de.schnitzel.nutrition.listener.EatListener
+import de.schnitzel.nutrition.listener.JoinListener
 import de.schnitzel.nutrition.service.FoodService
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -26,6 +27,7 @@ class Nutrition : JavaPlugin() {
         nutritionGuiCommand()
         testCommand()
         manager.registerEvents(EatListener(), this)
+        manager.registerEvents(JoinListener(), this)
     }
 
     override fun onDisable() {

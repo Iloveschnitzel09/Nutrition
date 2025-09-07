@@ -1,4 +1,4 @@
-package de.schnitzel.nutrition
+package de.schnitzel.nutrition.util
 
 enum class FoodCategory {
     MILCH,
