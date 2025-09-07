@@ -6,6 +6,7 @@ import de.schnitzel.nutrition.database.DatabaseService
 import de.schnitzel.nutrition.listener.EatListener
 import de.schnitzel.nutrition.listener.JoinListener
 import de.schnitzel.nutrition.service.FoodService
+import de.schnitzel.nutrition.service.HungerService
 import org.bukkit.plugin.java.JavaPlugin
 
 val plugin get() = JavaPlugin.getPlugin(Nutrition::class.java)
@@ -23,6 +24,7 @@ class Nutrition : JavaPlugin() {
         // Plugin startup logic
         saveDefaultConfig()
         FoodService.load(this)
+        HungerService.start()
 
         nutritionGuiCommand()
         testCommand()
@@ -32,5 +34,6 @@ class Nutrition : JavaPlugin() {
 
     override fun onDisable() {
         DatabaseService.closeConnection()
+        HungerService.stop()
     }
 }

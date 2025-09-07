@@ -1,6 +1,8 @@
 package de.schnitzel.nutrition.gui
 
+import com.github.shynixn.mccoroutine.folia.entityDispatcher
 import com.github.shynixn.mccoroutine.folia.launch
+import com.github.shynixn.mccoroutine.folia.mainDispatcher
 import com.github.stefvanschie.inventoryframework.adventuresupport.ComponentHolder
 import com.github.stefvanschie.inventoryframework.gui.GuiItem
 import com.github.stefvanschie.inventoryframework.gui.type.ChestGui
@@ -11,6 +13,7 @@ import de.schnitzel.nutrition.database.DatabaseService
 import de.schnitzel.nutrition.util.NutritionData
 import dev.slne.surf.surfapi.bukkit.api.builder.buildItem
 import dev.slne.surf.surfapi.bukkit.api.builder.displayName
+import kotlinx.coroutines.withContext
 
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.TextDecoration
@@ -42,10 +45,9 @@ class NutritionGui(player: Player) : ChestGui(6, ComponentHolder.of(Component.te
 
 
         plugin.launch {
-            val data = DatabaseService.loadNutritionData(player.uniqueId) ?: return@launch
+            val data = DatabaseService.loadNutritionData(player.uniqueId)
 
-            Bukkit.getScheduler().runTask(plugin, Runnable {
-
+            withContext(plugin.entityDispatcher(player)) {
                 val values = createArray(data).map { it.coerceIn(0, 6) }
 
                 values.forEachIndexed { index, height ->
@@ -61,8 +63,8 @@ class NutritionGui(player: Player) : ChestGui(6, ComponentHolder.of(Component.te
                     }
                 }
 
-                this@NutritionGui.show(player)
-            })
+                update()
+            }
         }
 
         this.setOnGlobalClick { event: InventoryClickEvent ->

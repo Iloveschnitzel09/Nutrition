@@ -5,6 +5,8 @@ import de.schnitzel.nutrition.util.NutritionData
 import dev.slne.surf.database.DatabaseManager
 import dev.slne.surf.database.database.DatabaseProvider
 import kotlinx.coroutines.Dispatchers
+import org.bukkit.entity.Player
+import org.jetbrains.annotations.NotNull
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.insert
@@ -61,7 +63,7 @@ object DatabaseService {
                 meat = it[PlayerNutritionEntryTable.meat],
                 dairy = it[PlayerNutritionEntryTable.dairy]
             )
-        }.firstOrNull()
+        }.first()
     }
 
     suspend fun saveNutritionData(data: NutritionData) = newSuspendedTransaction(Dispatchers.IO) {
