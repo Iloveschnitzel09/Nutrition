@@ -7,6 +7,6 @@ object PermissionRegistry : PermissionRegistry() {
     private const val PREFIX = "nutrition"
     private const val COMMAND_PREFIX = "$PREFIX.command"
 
-    val COMMAND_NUTRITIONGUI = create("$COMMAND_PREFIX.nutritiongui")
+    val COMMAND_NUTRITION_GUI = create("$COMMAND_PREFIX.nutrition.gui")
     val COMMAND_TEST = create("$COMMAND_PREFIX.test")
 }

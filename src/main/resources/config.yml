@@ -1,4 +1,4 @@
-edible-items:
+#edible-items: # TODO: SURF CONFIG API frag onso der kennt sich damit aus
   APPLE:
     FRUECHTE: 2
     ZUCKER: 1

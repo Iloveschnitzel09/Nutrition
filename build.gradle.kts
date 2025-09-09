@@ -9,7 +9,7 @@ dependencies {
 }
 
 group = "de.schnitzel"
-version = "1.21.7-1.0.0-SNAPSHOT"
+version = "1.21.8-1.0.0-SNAPSHOT"
 
 surfPaperPluginApi {
     mainClass("de.schnitzel.nutrition.Nutrition")

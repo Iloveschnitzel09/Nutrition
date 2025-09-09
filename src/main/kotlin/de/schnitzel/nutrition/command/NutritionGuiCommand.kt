@@ -8,7 +8,7 @@ import dev.slne.surf.surfapi.core.api.messages.adventure.sendText
 import org.bukkit.Material
 
 fun nutritionGuiCommand() = commandAPICommand("nutritiongui") {
-    withPermission(PermissionRegistry.COMMAND_NUTRITIONGUI)
+    withPermission(PermissionRegistry.COMMAND_NUTRITION_GUI)
     playerExecutor { player, _ ->
         NutritionGui(player).show(player)
     }
