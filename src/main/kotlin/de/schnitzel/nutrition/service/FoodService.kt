@@ -1,5 +1,6 @@
 package de.schnitzel.nutrition.service
 
+import de.schnitzel.nutrition.plugin
 import de.schnitzel.nutrition.util.FoodCategory
 import de.schnitzel.nutrition.util.NutritionData
 
@@ -15,7 +16,7 @@ object FoodService {
 
     val edibleItems: MutableMap<Material, Map<FoodCategory, Int>> = mutableMapOf()
 
-    fun load(plugin: JavaPlugin) {
+    fun load() {
         edibleItems.clear()
 
         val section = plugin.config.getConfigurationSection("edible-items") ?: return

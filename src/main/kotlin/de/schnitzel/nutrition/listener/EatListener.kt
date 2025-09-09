@@ -4,6 +4,7 @@ import com.github.shynixn.mccoroutine.folia.launch
 import de.schnitzel.nutrition.database.DatabaseService
 import de.schnitzel.nutrition.plugin
 import de.schnitzel.nutrition.service.FoodService
+import de.schnitzel.nutrition.service.HungerService
 import de.schnitzel.nutrition.util.getNuScore
 import dev.slne.surf.surfapi.core.api.messages.ComponentMessage
 import dev.slne.surf.surfapi.core.api.messages.adventure.sendText
@@ -41,25 +42,18 @@ class EatListener : Listener {
         val nutritionData = FoodService.getNutritionDataForItem(player, item)
 
         plugin.launch(Dispatchers.IO) {
-            var data = DatabaseService.loadNutritionData(player.uniqueId)
+            val data = DatabaseService.loadNutritionData(player.uniqueId)
 
-            if (data != null) {
-                data.fruit = (data.fruit + nutritionData.fruit).coerceAtMost(10)
-                data.sugar = (data.sugar + nutritionData.sugar).coerceAtMost(10)
-                data.cereals = (data.cereals + nutritionData.cereals).coerceAtMost(10)
-                data.meat = (data.meat + nutritionData.meat).coerceAtMost(10)
-                data.dairy = (data.dairy + nutritionData.dairy).coerceAtMost(10)
+            data.fruit = (data.fruit + nutritionData.fruit).coerceAtMost(10)
+            data.sugar = (data.sugar + nutritionData.sugar).coerceAtMost(10)
+            data.cereals = (data.cereals + nutritionData.cereals).coerceAtMost(10)
+            data.meat = (data.meat + nutritionData.meat).coerceAtMost(10)
+            data.dairy = (data.dairy + nutritionData.dairy).coerceAtMost(10)
 
-                data.nuScore = getNuScore(data)
-                DatabaseService.saveNutritionData(data)
+            data.nuScore = getNuScore(data)
+            DatabaseService.saveNutritionData(data)
 
-
-            }
-            data = DatabaseService.loadNutritionData(player.uniqueId)
-            player.sendText {
-                info(data?.fruit.toString() + " " + data?.sugar.toString() + " " + data?.cereals.toString() + " " + data?.meat.toString() + " " + data?.dairy.toString())
-            }
-
+            HungerService.applyEffect()
         }
     }
 }

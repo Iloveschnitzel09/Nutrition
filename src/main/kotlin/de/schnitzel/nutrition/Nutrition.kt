@@ -23,7 +23,7 @@ class Nutrition : JavaPlugin() {
 
         // Plugin startup logic
         saveDefaultConfig()
-        FoodService.load(this)
+        FoodService.load()
         HungerService.start()
 
         nutritionGuiCommand()
@@ -37,3 +37,10 @@ class Nutrition : JavaPlugin() {
         HungerService.stop()
     }
 }
+
+/**
+ * NUTRITION CORE x SIMPLE CORE
+ *
+ * Gutes Plugin, paar Sachen kann man aber überarbeiten. Siehe "//TODO: "
+ * 3/5 STERNE
+ */
